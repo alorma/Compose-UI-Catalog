@@ -2,37 +2,48 @@ package com.alorma.composecatalog
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.Text
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.setContent
 import androidx.ui.tooling.preview.Preview
+import com.alorma.compose_catalog.CatalogScreen
 import com.alorma.composecatalog.ui.ComposeCatalogTheme
+import com.alorma.composecatalog.ui.DarkColorPalette
+import com.alorma.composecatalog.ui.LightColorPalette
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
             ComposeCatalogTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(color = MaterialTheme.colors.background) {
-                    Greeting("Android")
-                }
+                CatalogScreen(
+                    lightColors = LightColorPalette,
+                    darkColors = DarkColorPalette,
+                )
             }
         }
     }
 }
 
+@Preview(showBackground = true)
 @Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
+fun LightDefaultPreview() {
+    ComposeCatalogTheme {
+        CatalogScreen(
+            lightColors = LightColorPalette,
+            darkColors = DarkColorPalette,
+        )
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun DefaultPreview() {
+fun DarkDefaultPreview() {
     ComposeCatalogTheme {
-        Greeting("Android")
+        CatalogScreen(
+            isDark = true,
+            lightColors = LightColorPalette,
+            darkColors = DarkColorPalette,
+        )
     }
 }
