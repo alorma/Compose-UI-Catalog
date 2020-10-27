@@ -33,22 +33,31 @@ fun CatalogScreen(
     ) {
         Scaffold(
             topBar = {
-                TopAppBar(
-                    title = {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Icon(asset = vectorResource(id = R.drawable.ic_catalog_palette))
-                            Spacer(modifier = Modifier.preferredWidth(8.dp))
-                            Text(text = "Catalog")
-                        }
-                    }
-                )
+                CatalogToolbar()
             }
         ) {
             CatalogItemsContent(MaterialCatalogItems() + items)
         }
     }
+}
+
+@Composable
+private fun CatalogToolbar() {
+    TopAppBar(
+        title = {
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(text = "Catalog")
+            }
+        },
+        actions = {
+            IconButton(
+                icon = { Icon(vectorResource(id = R.drawable.ic_catalog_palette)) },
+                onClick = {}
+            )
+        }
+    )
 }
 
 @Composable
