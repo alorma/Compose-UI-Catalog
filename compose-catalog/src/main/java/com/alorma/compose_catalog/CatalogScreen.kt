@@ -67,7 +67,12 @@ private fun CatalogItemsContent(list: List<CatalogItem>) {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(16.dp)
+                        .padding(
+                            top = 4.dp,
+                            start = 16.dp,
+                            bottom = 4.dp,
+                            end = 16.dp
+                        )
                 ) {
                     item.builder()
                 }
@@ -83,17 +88,22 @@ private fun catalogItemTitle(
     onClick: () -> Unit,
 ) {
     val surfaceColor = if (isSystemInDarkTheme()) {
-        MaterialTheme.colors.secondary.copy(alpha = 0.20f).compositeOver(
-            MaterialTheme.colors.background
-        )
+        MaterialTheme.colors.surface
     } else {
         MaterialTheme.colors.secondary
     }
-    val contentColor = MaterialTheme.colors.onSecondary
+
+    val contentColor = if (isSystemInDarkTheme()) {
+        MaterialTheme.colors.onSurface
+    } else {
+        MaterialTheme.colors.onSecondary
+    }
 
     Surface(
         color = surfaceColor,
         contentColor = contentColor,
+        elevation = if (expanded) 4.dp else 8.dp,
+        modifier = Modifier.padding(if (expanded) 8.dp else 0.dp)
     ) {
         Row(
             modifier = Modifier
@@ -108,6 +118,7 @@ private fun catalogItemTitle(
             ProvideTextStyle(value = MaterialTheme.typography.h5) {
                 Text(text = item.name)
             }
+            Spacer(modifier = Modifier.weight(1f))
         }
     }
 
