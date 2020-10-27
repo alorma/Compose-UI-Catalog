@@ -1,16 +1,21 @@
 package com.alorma.compose_catalog
 
+import android.graphics.drawable.shapes.Shape
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.lazy.LazyColumnFor
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.ui.tooling.preview.Preview
+import kotlin.math.exp
 
 @Composable
 fun CatalogScreen(
@@ -86,31 +91,30 @@ private fun catalogItemTitle(
     expanded: Boolean,
     onClick: () -> Unit,
 ) {
-    val surfaceColor = if (isSystemInDarkTheme()) {
-        MaterialTheme.colors.surface
-    } else {
-        MaterialTheme.colors.secondary
-    }
+    val surfaceColor = MaterialTheme.colors.onSurface.copy(alpha = 0.12f)
+        .compositeOver(MaterialTheme.colors.surface)
 
-    val contentColor = if (isSystemInDarkTheme()) {
-        MaterialTheme.colors.onSurface
+    val shape = if (expanded) {
+        MaterialTheme.shapes.medium
     } else {
-        MaterialTheme.colors.onSecondary
+        RoundedCornerShape(0.dp)
     }
 
     Surface(
         color = surfaceColor,
-        contentColor = contentColor,
-        elevation = if (expanded) 4.dp else 8.dp,
-        modifier = Modifier.padding(if (expanded) 8.dp else 0.dp)
+        shape = shape,
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(shape = shape)
+            .padding(if (expanded) 8.dp else 0.dp)
     ) {
         Row(
+            verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
-                .fillMaxWidth()
                 .height(48.dp)
+                .clip(shape = shape)
                 .clickable(onClick = onClick)
-                .padding(8.dp),
-            verticalAlignment = Alignment.CenterVertically
+                .padding(8.dp)
         ) {
             Icon(vectorResource(id = item.icon))
             Spacer(modifier = Modifier.preferredWidth(8.dp))
