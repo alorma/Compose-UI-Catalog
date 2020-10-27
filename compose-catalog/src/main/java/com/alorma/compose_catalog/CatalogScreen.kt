@@ -1,6 +1,5 @@
 package com.alorma.compose_catalog
 
-import android.graphics.drawable.shapes.Shape
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Box
@@ -15,7 +14,6 @@ import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.ui.tooling.preview.Preview
-import kotlin.math.exp
 
 @Composable
 fun CatalogScreen(
@@ -57,8 +55,10 @@ fun CatalogScreen(
 private fun CatalogItemsContent(list: List<CatalogItem>) {
     LazyColumnFor(
         items = list,
+        contentPadding = PaddingValues(
+            bottom = 32.dp
+        )
     ) { item ->
-
         var expanded: Boolean by remember { mutableStateOf(false) }
 
         Column {
