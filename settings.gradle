@@ -1,0 +1,3 @@
+rootProject.name = "Compose Catalog"
+include ':app'
+include ':compose-catalog'
